@@ -1,0 +1,1 @@
+{"width": 1280, "height": 720, "num_bars": 200, "speed": 0.0, "sort_type": "Quick", "show_config": true, "display_method": "Circle"}
