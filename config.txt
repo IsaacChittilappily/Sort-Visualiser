@@ -1,1 +1,1 @@
-{"width": 1280, "height": 720, "num_bars": 200, "speed": 0.0, "sort_type": "Quick", "show_config": true, "display_method": "Circle"}
+{"width": 1200, "height": 700, "num_bars": 1000, "speed": 0.0, "sort_type": "Merge", "show_config": true, "display_method": "Circle"}

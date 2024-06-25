@@ -29,8 +29,6 @@ class SortVisualizer:
         self.config_label = tk.Label(self.root, text="", fg="white", bg="black", font=("Arial", 12), anchor="nw", justify="left")
         self.config_label.place(relx=0.01, rely=0.01, anchor="nw")
 
-        self.timer_label = tk.Label(self.root, text="", fg="white", bg="black", font=("Arial", 12), anchor="ne", justify="right")
-        self.timer_label.place(relx=0.99, rely=0.01, anchor="ne")
 
         self.array = list(range(1, self.num_bars + 1))
         random.shuffle(self.array)  # Ensure array is shuffled initially
@@ -122,12 +120,6 @@ class SortVisualizer:
             color = self.rgb_to_hex(*self.colors[val - 1])  # Use the value for color indexing
             self.canvas.create_polygon(cx, cy, x_start, y_start, x_end, y_end, fill=color, outline="")
 
-    def update_timer(self):
-        while self.sorting:
-            elapsed_time = time.time() - self.start_time
-            self.timer_label.config(text=f"Time: {elapsed_time:.2f} s")
-            self.root.update()
-            time.sleep(0.1)
 
     def display_config(self):
         config_text = (
@@ -231,22 +223,24 @@ class SortVisualizer:
         self.shuffling_label.lower()
 
     def shuffle_and_sort(self):
-        self.animate_shuffle()
-        self.start_time = time.time()
-        self.sorting = True
-        timer_thread = threading.Thread(target=self.update_timer)
-        timer_thread.start()
+        while True:  # Infinite loop for continuous shuffling and sorting
+            self.animate_shuffle()
+            self.start_time = time.time()
+            self.sorting = True
 
-        if self.sort_type == "Bubble":
-            self.bubble_sort()
-        elif self.sort_type == "Merge":
-            self.merge_sort(self.array, 0, len(self.array) - 1)
-        elif self.sort_type == "Insertion":
-            self.insertion_sort()
-        elif self.sort_type == "Quick":
-            self.quick_sort(self.array, 0, len(self.array) - 1)
+            if self.sort_type == "Bubble":
+                self.bubble_sort()
+            elif self.sort_type == "Merge":
+                self.merge_sort(self.array, 0, len(self.array) - 1)
+            elif self.sort_type == "Insertion":
+                self.insertion_sort()
+            elif self.sort_type == "Quick":
+                self.quick_sort(self.array, 0, len(self.array) - 1)
 
-        self.sorting = False
+            self.sorting = False
+
+            time.sleep(2)  # Wait for 2 seconds before shuffling again
+
 
 class MenuScreen:
     CONFIG_FILE = "config.txt"
